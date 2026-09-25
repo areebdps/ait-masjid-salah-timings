@@ -1,5 +1,6 @@
 "use client";
 import { Coordinates, CalculationMethod, PrayerTimes } from "adhan";
+import "hijri-date";
 import {
   AIT_LATITUDE,
   AIT_LONGITUDE,
@@ -23,18 +24,37 @@ export default function Home() {
   const asrTime = MANUAL_TIMES.asr;
   const maghribTime = formatTime(prayerTimes.maghrib);
   const ishaTime = MANUAL_TIMES.isha;
-  const now = new Date();
-
+const now = new Date();
 const today = new Date();
 
-const createTime = (time: string) => {
-  const [hours, minutes] = time.split(":").map(Number);
+const islamicDateParts = new Intl.DateTimeFormat("en-TN-u-ca-islamic", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+}).formatToParts(today);
 
-  const date = new Date(today);
-  date.setHours(hours, minutes, 0, 0);
+const islamicDay = islamicDateParts.find(
+  (part) => part.type === "day"
+)?.value;
 
-  return date;
-};
+const islamicMonth = islamicDateParts.find(
+  (part) => part.type === "month"
+)?.value;
+
+const islamicYear = islamicDateParts.find(
+  (part) => part.type === "year"
+)?.value;
+
+const islamicDate = `${islamicDay} ${islamicMonth} ${islamicYear} AH`;
+
+  function createTime(time: string) {
+    const [hours, minutes] = time.split(":").map(Number);
+
+    const date = new Date(today);
+    date.setHours(hours, minutes, 0, 0);
+
+    return date;
+  }
 
 const prayers = [
   { name: "Fajr", time: createTime(MANUAL_TIMES.fajr) },
@@ -128,15 +148,18 @@ const nextPrayer =
           </div>
         </section>
         <div className="mt-4 grid grid-cols-2 gap-4">
-  <div className="rounded-xl bg-slate-50 p-4 text-center">
-    <p className="text-sm text-slate-500">Sunrise</p>
+  <div className="rounded-xl border border-slate-100 bg-white p-4 text-center shadow-sm">
+    <p className="text-sm text-slate-500">
+      Sunrise
+    </p>
     <p className="mt-2 text-lg font-semibold text-slate-900">
       {sunriseTime}
     </p>
   </div>
-
-  <div className="rounded-xl bg-slate-50 p-4 text-center">
-    <p className="text-sm text-slate-500">Sunset</p>
+  <div className="rounded-xl border border-slate-100 bg-white p-4 text-center shadow-sm">
+    <p className="text-sm text-slate-500">
+      Sunset
+    </p>
     <p className="mt-2 text-lg font-semibold text-slate-900">
       {formatTime(prayerTimes.maghrib)}
     </p>
@@ -156,31 +179,35 @@ const nextPrayer =
   </div>
 </section>
 
-        <section className="mt-8 rounded-2xl bg-white p-6 shadow-sm">
-          <h2 className="text-xl font-bold">
-            Ramadan
-          </h2>
+       <section className="mt-8 rounded-2xl bg-white p-6 shadow-sm">
+  <h2 className="text-xl font-bold">
+    Islamic Date
+  </h2>
 
-          <div className="mt-4 grid grid-cols-2 gap-4">
-            <div className="rounded-xl bg-slate-50 p-4 text-center">
-              <p className="text-sm text-slate-500">
-                Suhoor Ends
-              </p>
-              <p className="mt-2 text-xl font-semibold">
-  {formatTime(prayerTimes.fajr)}
-</p>
-            </div>
+  <p className="mt-2 text-lg font-semibold text-slate-700">
+    {islamicDate}
+  </p>
 
-            <div className="rounded-xl bg-slate-50 p-4 text-center">
-              <p className="text-sm text-slate-500">
-                Iftar
-              </p>
-              <p className="mt-2 text-xl font-semibold">
-                {maghribTime}
-              </p>
-            </div>
-          </div>
-        </section>
+  <div className="mt-4 grid grid-cols-2 gap-4">
+    <div className="rounded-xl bg-slate-50 p-4 text-center">
+      <p className="text-sm text-slate-500">
+        Suhoor Ends
+      </p>
+      <p className="mt-2 text-xl font-semibold">
+        {formatTime(prayerTimes.fajr)}
+      </p>
+    </div>
+
+    <div className="rounded-xl bg-slate-50 p-4 text-center">
+      <p className="text-sm text-slate-500">
+        Iftar
+      </p>
+      <p className="mt-2 text-xl font-semibold">
+        {maghribTime}
+      </p>
+    </div>
+  </div>
+</section>
 
 <footer className="mt-10 text-center">
   <p className="text-sm text-slate-500">
