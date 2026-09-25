@@ -182,9 +182,14 @@ const nextPrayer =
           </div>
         </section>
 
-        <footer className="mt-10 text-center text-sm text-slate-500">
-          AIT Masjid · Asian Institute of Technology
-        </footer>
+<footer className="mt-10 text-center">
+  <p className="text-sm text-slate-500">
+    AIT Masjid · Asian Institute of Technology
+  </p>
+  <p className="mt-1 text-xs italic text-slate-400">
+    Developed by Areeb Manzoor
+  </p>
+</footer>
       </div>
     </main>
   );
