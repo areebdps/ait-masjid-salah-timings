@@ -45,7 +45,25 @@ const islamicYear = islamicDateParts.find(
   (part) => part.type === "year"
 )?.value;
 
-const islamicDate = `${islamicDay} ${islamicMonth} ${islamicYear} AH`;
+const islamicMonthNames: Record<string, string> = {
+  "Muharram": "Muharram",
+  "Safar": "Safar",
+  "Rabiʻ I": "Rabi' al-Awwal",
+  "Rabiʻ II": "Rabi' al-Thani",
+  "Jumada I": "Jumada al-Awwal",
+  "Jumada II": "Jumada al-Thani",
+  "Rajab": "Rajab",
+  "Shaʻban": "Sha'ban",
+  "Ramadan": "Ramadan",
+  "Shawwal": "Shawwal",
+  "Dhuʻl-Qiʻdah": "Dhu al-Qi'dah",
+  "Dhuʻl-Hijjah": "Dhu al-Hijjah",
+};
+
+const formattedIslamicMonth =
+  islamicMonthNames[islamicMonth ?? ""] ?? islamicMonth;
+
+const islamicDate = `${islamicDay} ${formattedIslamicMonth} ${islamicYear} AH`;
 
   function createTime(time: string) {
     const [hours, minutes] = time.split(":").map(Number);
