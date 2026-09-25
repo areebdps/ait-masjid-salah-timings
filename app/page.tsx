@@ -1,4 +1,4 @@
-export const dynamic = "force-dynamic";
+"use client";
 import { Coordinates, CalculationMethod, PrayerTimes } from "adhan";
 import {
   AIT_LATITUDE,
