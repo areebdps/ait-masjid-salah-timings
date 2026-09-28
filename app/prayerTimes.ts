@@ -3,7 +3,7 @@ export const AIT_LONGITUDE = 100.606811;
 export const MANUAL_TIMES = {
   fajr: "05:30",
   dhuhr: "12:40",
-  asr: "16:45",
-  isha: "20:00",
+  asr: "16:30",
+  isha: "19:45",
   jumuah: "12:40",
 };
