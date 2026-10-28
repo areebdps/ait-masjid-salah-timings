@@ -59,7 +59,6 @@ const islamicMonthNames: Record<string, string> = {
   "Dhuʻl-Qiʻdah": "Dhu al-Qi'dah",
   "Dhuʻl-Hijjah": "Dhu al-Hijjah",
 };
-
 const formattedIslamicMonth =
   islamicMonthNames[islamicMonth ?? ""] ?? islamicMonth;
 
